@@ -30,12 +30,18 @@
     <ClCompile Include="debug.cpp">
       <Filter>Pliki źródłowe\essentials</Filter>
     </ClCompile>
+    <ClCompile Include="fsystem.cpp">
+      <Filter>Pliki źródłowe\essentials</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="globalinclude.h">
       <Filter>Pliki nagłówkowe\globals</Filter>
     </ClInclude>
     <ClInclude Include="debug.h">
+      <Filter>Pliki nagłówkowe\essentials</Filter>
+    </ClInclude>
+    <ClInclude Include="fsystem.h">
       <Filter>Pliki nagłówkowe\essentials</Filter>
     </ClInclude>
   </ItemGroup>

@@ -18,6 +18,7 @@ public:
 	void push(debug::codes type, std::string message, std::string reason = "No info.");
 
 	std::vector<bool> enabled = { false, false, false };
+
 private:
 	void print(debug::codes type, size_t index);
 	
