@@ -34,6 +34,8 @@ namespace fsystem
 			std::vector<std::string> getBuffer();
 
 			bool close();
+			
+			bool setBuffer(std::vector<std::string> buffer);
 
 		private:
 

@@ -2,6 +2,7 @@
 #include "debug.h"
 #include "fsystem.h"
 
+
 int main()
 {
 	
@@ -11,11 +12,11 @@ int main()
 	msg->setMessageState(debug::message, true);
 
 	fsystem::regular::helpers* file = new fsystem::regular::helpers(msg);
-	file->setPath<std::string>("C:/c++/builder 3.0/builder 3.0/regularfile.h");
+	file->setPath<std::string>("C:/Users/jakub/Desktop/chuu.lua");
 
-	std::vector<std::string> bf = file->getBuffer();
-	for (std::string l : bf) msg->push(debug::message, l);
-	
+	msg->push(debug::message, "test message");
+
+	std::cout << msg->write_to_file("C:/Users/jakub/Desktop/chuu.lua");
 
 	return 0; 
 }

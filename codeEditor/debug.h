@@ -19,6 +19,8 @@ public:
 
 	std::vector<bool> enabled = { false, false, false };
 
+	bool write_to_file(std::string file_path);
+
 private:
 	void print(debug::codes type, size_t index);
 	

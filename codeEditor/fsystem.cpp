@@ -49,3 +49,21 @@ std::vector<std::string> fsystem::regular::helpers::getBuffer()
 	this->close();
 	return buffer;
 }
+
+bool fsystem::regular::helpers::setBuffer(std::vector<std::string> buffer)
+{
+	if (!this->open(std::ios::out)) {
+		msg->push(debug::error, "fsystem::regular::helpers::setBuffer -> Failed to set buffer.", "Failed to open.");
+		return false;
+	}
+
+	std::string buffer_string;
+	for (std::string line : buffer)
+	{
+		buffer_string += line;
+	}
+
+	this->file << buffer_string;
+	this->close();
+	return true;
+}
