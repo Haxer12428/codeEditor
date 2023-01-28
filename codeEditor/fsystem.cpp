@@ -5,11 +5,47 @@ fsystem::regular::helpers::helpers(debug* msg)
 	this->msg = msg;
 }
 
-template<typename T> bool fsystem::regular::helpers::setPath(T path)
+std::filesystem::path fsystem::regular::helpers::getPath()
 {
-	if (!std::is_same<T, std::string>::value || std::is_same<T, std::filesystem::path>::value)
-	{
-		msg->push(debug::error, "fsystem::regular::helpers::setPath -> Failed to set path.", "T must be std::string || std::filesystem");  return false;
+	return this->path;
+}
+
+bool fsystem::regular::helpers::validate()
+{
+	try {
+		return std::filesystem::is_regular_file(this->path);
 	}
-	return true;
+	catch (std::exception& ex) { msg->push(debug::error, "fsystem::regular::helpers::validate -> Failed to validate.", ex.what()); return false; }
+}
+
+bool fsystem::regular::helpers::open(std::ios::openmode mode)
+{
+	try {
+		this->file.open(this->path, mode); 
+		return this->file.is_open();
+	}
+	catch (std::exception& ex) { msg->push(debug::error, "fsystem::regular::helpers::open -> Failed to open.", ex.what()); return false; }
+}
+
+bool fsystem::regular::helpers::close()
+{
+	if (this->file.is_open()) { msg->push(debug::warning, "fsystem::regular::helpers::close -> Failed to close.", "File is already closed."); return true; }
+	file.close();
+	return file.is_open();
+}
+
+std::vector<std::string> fsystem::regular::helpers::getBuffer()
+{
+	if (!this->open(std::ios::in)) { msg->push(debug::error, "fsystem::regular::helpers::getBuffer -> Failed to get buffer.", "Failed to open."); return std::vector<std::string>(); };
+
+	std::vector<std::string> buffer; 
+	std::string currentLine; 
+
+	while (std::getline(this->file, currentLine))
+	{
+		buffer.push_back(currentLine);
+	}
+
+	this->close();
+	return buffer;
 }
