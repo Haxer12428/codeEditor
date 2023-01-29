@@ -1,5 +1,6 @@
 #include "debug.h"
 #include "ctime.h"
+#include "color.h"
 
 debug::debug()
 {
@@ -19,7 +20,18 @@ void debug::push(debug::codes type, std::string msg, std::string reason)
 
 void debug::print(debug::codes type, size_t index)
 {
-	std::cout << this->logger[type][index] << std::endl;
+	if (type == 0)
+	{
+		std::cout << ansi::foreground_red << this->logger[type][index] << ansi::reset << std::endl;
+	}
+	else if (type == 1)
+	{
+		std::cout << ansi::yellow << this->logger[type][index] << ansi::reset << std::endl;
+	}
+	else if (type == 2)
+	{
+		std::cout << ansi::blue << this->logger[type][index] << ansi::reset << std::endl;
+	}
 }
 
 bool debug::write_to_file(std::string file_path)

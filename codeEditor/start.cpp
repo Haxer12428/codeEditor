@@ -14,6 +14,8 @@ int main()
 	fsystem::regular::helpers* file = new fsystem::regular::helpers(msg);
 	file->setPath<std::string>("C:/Users/jakub/Desktop/chuu.lua");
 
+	msg->push(debug::error, "test message");
+	msg->push(debug::warning, "test message");
 	msg->push(debug::message, "test message");
 
 	std::cout << msg->write_to_file("C:/Users/jakub/Desktop/chuu.lua");

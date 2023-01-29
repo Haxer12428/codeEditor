@@ -22,6 +22,12 @@
     <Filter Include="Pliki źródłowe\essentials">
       <UniqueIdentifier>{984ccea4-090e-43b5-8a67-20af015d26d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pliki nagłówkowe\helpers">
+      <UniqueIdentifier>{be1f2e21-d93a-4b34-8296-cc04e60b90fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\helpers">
+      <UniqueIdentifier>{7514373b-bd12-4d79-aef8-c76e99de814b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="start.cpp">
@@ -33,6 +39,9 @@
     <ClCompile Include="fsystem.cpp">
       <Filter>Pliki źródłowe\essentials</Filter>
     </ClCompile>
+    <ClCompile Include="ctime.cpp">
+      <Filter>Pliki źródłowe\helpers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="globalinclude.h">
@@ -43,6 +52,12 @@
     </ClInclude>
     <ClInclude Include="fsystem.h">
       <Filter>Pliki nagłówkowe\essentials</Filter>
+    </ClInclude>
+    <ClInclude Include="ctime.h">
+      <Filter>Pliki nagłówkowe\helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="color.h">
+      <Filter>Pliki nagłówkowe\helpers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -26,6 +26,7 @@ private:
 	
 	std::vector<std::string> emojis = { "!", "*", "." };
 
+
 	std::vector<std::vector<std::string>> logger = { {}, {}, {} };
 };
 

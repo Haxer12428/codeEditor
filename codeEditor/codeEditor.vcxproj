@@ -137,6 +137,7 @@
     <ClCompile Include="ctime.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="color.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="fsystem.h" />
     <ClInclude Include="globalinclude.h" />
