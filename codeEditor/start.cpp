@@ -13,7 +13,16 @@ int main()
 
 	fsystem::dir::helpers* dir = new fsystem::dir::helpers(msg);
 	dir->setPath<std::string>("C:/Program Files/");
-	dir->getAllRecursivePaths();
-	
+
+
+	std::vector<std::string> paths = dir->getAllRecursivePaths();
+
+	for (std::string path : fsystem::global::helpers::getFiles(paths))
+	{
+		std::cout << path << std::endl;
+	}
+
+	std::cout << "Size : " << fsystem::global::helpers::formatSizeInBytes(fsystem::global::helpers::GB, dir->getSize()) << "KB" << std::endl;
+
 	return 0; 
 }

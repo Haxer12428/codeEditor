@@ -39,6 +39,8 @@ namespace fsystem
 
 			std::string getName();
 
+			void destory();
+
 		private:
 
 			std::fstream file;
@@ -114,13 +116,75 @@ namespace fsystem
 				msg->push(debug::message, "fsystem::dir::helpers::getAllRecursivePaths -> Success", "Got " + std::to_string(paths.size()) + " paths", __FILE__);
 				return paths;
 			}
-				
+	
+			void destroy(); 
+
+			std::string getName();
+
+			size_t getSize();
+
 		private:
 			debug* msg;
 			std::filesystem::path path;
 		};
 
 	};
+
+	namespace global
+	{
+		class helpers
+		{
+		public:
+			enum formats
+			{
+				B = 8,
+				KB = 8 * 1024,
+				MB = 8 * 1024^2,
+				GB = 8 * 1024^3,
+				TB = 8 * 1024^4
+			};
+
+			static double_t formatSizeInBytes(fsystem::global::helpers::formats format, uintmax_t sizeInBytes);
+
+			template<typename T> static std::vector<T> getFolders(std::vector<T> list, debug* msg = new debug())
+			{
+				if (!std::is_same<T, std::string>::value || std::is_same<T, std::filesystem::path>::value) 
+				{ msg->push(debug::error, "fsystem::global::helpers::getFolders -> Check failed.", "Invaild template (std::string || std::filesystem::path)", __FILE__); return list; }
+			
+				try {
+					std::vector<T> newList; 
+
+					for (T path : list)
+					{
+						std::filesystem::path pathFixed = path; 
+						if (std::filesystem::is_directory(pathFixed)) newList.push_back(path);
+					}
+
+					return newList;
+				}
+				catch (std::exception& ex) { msg->push(debug::error, "fsystem::global::helpers::getFolders -> Failed", ex.what(), __FILE__); return list; }
+			}
+			template<typename T> static std::vector<T> getFiles(std::vector<T> list, debug* msg = new debug())
+			{
+				if (!std::is_same<T, std::string>::value || std::is_same<T, std::filesystem::path>::value)
+				{
+					msg->push(debug::error, "fsystem::global::helpers::getFiles -> Failed check.", "Invaild template (std::string || std::filesystem::path)", __FILE__); return list;
+				}
+
+				try {
+					std::vector<T> newList; 
+					for (T path : list)
+					{
+						if (std::filesystem::is_regular_file(path)) newList.push_back(path);
+					}
+
+					return newList;
+				}
+				catch (std::exception& ex) { msg->push(debug::error, "fsystem::global::helpers::getFiles -> Failed", ex.what(), __FILE__); return list; }
+			}
+			
+		};
+	}; 
 
 };
 

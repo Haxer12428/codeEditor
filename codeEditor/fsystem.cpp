@@ -78,3 +78,35 @@ std::string fsystem::regular::helpers::getName()
 	if (!this->validate()) { msg->push(debug::error, "Failed.", "validation failed", __FILE__); return ""; }
 	return this->path.filename().string();
 }
+
+void fsystem::regular::helpers::destory()
+{
+	delete this;
+}
+
+void fsystem::dir::helpers::destroy()
+{
+	delete this;
+}
+
+std::string fsystem::dir::helpers::getName()
+{
+	if (!this->validate()) { msg->push(debug::error, "fsystem::dir::helpers::getName -> Failed check.", "failed to validate", __FILE__); return ""; }
+	return this->path.filename().string();
+}
+
+size_t fsystem::dir::helpers::getSize()
+{
+	if (!this->validate()) { msg->push(debug::error, "fsystem::dir::helpers::getSize -> Check failed", "failed to validate", __FILE__); return -1; }
+		
+	uintmax_t size = 0;
+	std::vector<std::string> filePaths = fsystem::global::helpers::getFiles(this->getAllRecursivePaths());
+
+	for (std::string path : filePaths) size += std::filesystem::file_size(path);
+	return size; 
+}
+
+double_t fsystem::global::helpers::formatSizeInBytes(fsystem::global::helpers::formats format, uintmax_t bytes)
+{
+	return bytes / format;
+}
