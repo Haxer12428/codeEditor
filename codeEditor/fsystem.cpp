@@ -67,3 +67,8 @@ bool fsystem::regular::helpers::setBuffer(std::vector<std::string> buffer)
 	this->close();
 	return true;
 }
+
+fsystem::dir::helpers::helpers(debug* msg)
+{
+	this->msg = msg; 
+}

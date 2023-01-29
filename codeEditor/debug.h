@@ -15,7 +15,7 @@ public:
 
 	void setMessageState(debug::codes type, bool state);
 
-	void push(debug::codes type, std::string message, std::string reason = "No info.");
+	void push(debug::codes type, std::string message, std::string reason = "No info.", const char* filename = "?");
 
 	std::vector<bool> enabled = { false, false, false };
 

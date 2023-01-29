@@ -12,9 +12,9 @@ void debug::setMessageState(debug::codes type, bool state)
 	this->enabled[type] = state;
 }
 
-void debug::push(debug::codes type, std::string msg, std::string reason)
+void debug::push(debug::codes type, std::string msg, std::string reason, const char* filename)
 {
-	this->logger[type].push_back("[" + ctime::get_system_time("%Y-%m-%d %X") +  "][" + this->emojis[type] + "] " + msg + " [" + reason + "]");
+	this->logger[type].push_back("[" + ctime::get_system_time("%Y-%m-%d %X") +  "][" + this->emojis[type] + "] " + msg + " [" + reason + "][" + filename + "]");
 	if (this->enabled[type]) this->print(type, this->logger[type].size() - 1);
 }
 

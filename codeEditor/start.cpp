@@ -11,14 +11,13 @@ int main()
 	msg->setMessageState(debug::warning, true);
 	msg->setMessageState(debug::message, true);
 
-	fsystem::regular::helpers* file = new fsystem::regular::helpers(msg);
-	file->setPath<std::string>("C:/Users/jakub/Desktop/chuu.lua");
+	fsystem::dir::helpers* dir = new fsystem::dir::helpers(msg);
+	dir->setPath<std::string>("C:/Windows/");
 
-	msg->push(debug::error, "test message");
-	msg->push(debug::warning, "test message");
-	msg->push(debug::message, "test message");
-
-	std::cout << msg->write_to_file("C:/Users/jakub/Desktop/chuu.lua");
+	for (std::string path : dir->getPaths())
+	{
+		std::cout << path << std::endl;
+	}
 
 	return 0; 
 }
