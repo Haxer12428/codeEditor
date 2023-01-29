@@ -37,6 +37,8 @@ namespace fsystem
 			
 			bool setBuffer(std::vector<std::string> buffer);
 
+			std::string getName();
+
 		private:
 
 			std::fstream file;

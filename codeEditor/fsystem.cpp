@@ -72,3 +72,9 @@ fsystem::dir::helpers::helpers(debug* msg)
 {
 	this->msg = msg; 
 }
+
+std::string fsystem::regular::helpers::getName()
+{
+	if (!this->validate()) { msg->push(debug::error, "Failed.", "validation failed", __FILE__); return ""; }
+	return this->path.filename().string();
+}
