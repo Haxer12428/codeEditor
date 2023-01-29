@@ -91,6 +91,30 @@ namespace fsystem
 				return paths;
 			}
 
+			std::filesystem::path getPath()
+			{
+				return this->path;
+			}
+
+			std::vector<std::string> getAllRecursivePaths()
+			{
+				msg->push(debug::message, "fsystem::dir::helpers::getAllRecursivePaths -> Attempting", "", __FILE__);
+				if (!this->validate()) { msg->push(debug::error, "fsystem::dir::helpers::getAllRecursivePaths -> Failed", "validation failed", __FILE__); return std::vector<std::string>(); }
+				
+				std::vector<std::string> paths;
+
+				try {
+					for (const auto& entry : std::filesystem::recursive_directory_iterator(this->path))
+					{
+						paths.push_back(entry.path().string());
+					}
+				}
+				catch (std::exception& ex) { msg->push(debug::warning, "fsystem::dir::helpers::getAllRecursivePaths -> Failed to access.", ex.what(), __FILE__); }
+
+				msg->push(debug::message, "fsystem::dir::helpers::getAllRecursivePaths -> Success", "Got " + std::to_string(paths.size()) + " paths", __FILE__);
+				return paths;
+			}
+				
 		private:
 			debug* msg;
 			std::filesystem::path path;
