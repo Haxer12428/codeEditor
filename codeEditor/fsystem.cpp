@@ -110,3 +110,36 @@ double_t fsystem::global::helpers::formatSizeInBytes(fsystem::global::helpers::f
 {
 	return bytes / format;
 }
+
+fsystem::network::regular::regular(debug* msg)
+{
+	this->msg = msg;
+}
+
+void fsystem::network::regular::setUrl(std::string url)
+{
+	this->url = url;
+	msg->push(debug::message, "Updated url", url, __FILE__);
+}
+
+
+bool fsystem::regular::helpers::create()
+{
+	if (this->validate()) { 
+		msg->push(debug::warning, "fsystem::regular::helpers::create -> Failed", "exists", __FILE__); return true; 
+	} this->setBuffer(std::vector<std::string>{" "});
+	
+	if (!this->validate()) { msg->push(debug::warning, "fsystem::regular::helpers::create -> Failed", "failed to create", __FILE__); return false; }
+	return true; 
+}
+bool fsystem::dir::helpers::create()
+{
+	if (this->validate()) { 
+		msg->push(debug::warning, "fsystem::dir::helpers::create -> Failed", "exists", __FILE__); return true; 
+	} std::filesystem::create_directory(this->path);
+	
+	if (!this->validate()) {
+		msg->push(debug::error, "fsystem::dir::helpers::create -> Failed", "creation failed", __FILE__); return false;
+	} return true; 
+}
+

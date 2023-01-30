@@ -30,23 +30,27 @@ namespace fsystem
 			bool validate();
 
 			bool open(std::ios::openmode mode);
-			
+
 			std::vector<std::string> getBuffer();
 
 			bool close();
-			
+
 			bool setBuffer(std::vector<std::string> buffer);
 
 			std::string getName();
 
 			void destory();
 
+			bool create();
+
+			uintmax_t getSize();
+
 		private:
 
 			std::fstream file;
 
 			debug* msg;
-			std::filesystem::path path; 
+			std::filesystem::path path;
 		};
 
 	};
@@ -66,7 +70,7 @@ namespace fsystem
 				{
 					msg->push(debug::error, "fsystem::dir::helpers::setPath -> Failed", "Invaild template. (std::string | std::filesystem::path)", __FILE__); return false;
 				}
-				this->path = path; return true; 
+				this->path = path; return true;
 			}
 
 			bool validate()
@@ -80,8 +84,8 @@ namespace fsystem
 			std::vector<std::string> getPaths()
 			{
 				if (!this->validate()) { msg->push(debug::error, "fsystem::dir::helpers::getPaths -> Failed.", "validation failed", __FILE__); return std::vector<std::string>(); }
-				
-				std::vector<std::string> paths; 
+
+				std::vector<std::string> paths;
 				try {
 					for (const auto& entry : std::filesystem::directory_iterator(this->path))
 					{
@@ -102,7 +106,7 @@ namespace fsystem
 			{
 				msg->push(debug::message, "fsystem::dir::helpers::getAllRecursivePaths -> Attempting", "", __FILE__);
 				if (!this->validate()) { msg->push(debug::error, "fsystem::dir::helpers::getAllRecursivePaths -> Failed", "validation failed", __FILE__); return std::vector<std::string>(); }
-				
+
 				std::vector<std::string> paths;
 
 				try {
@@ -116,13 +120,15 @@ namespace fsystem
 				msg->push(debug::message, "fsystem::dir::helpers::getAllRecursivePaths -> Success", "Got " + std::to_string(paths.size()) + " paths", __FILE__);
 				return paths;
 			}
-	
-			void destroy(); 
+
+			void destroy();
 
 			std::string getName();
 
 			size_t getSize();
 
+			bool create();
+				
 		private:
 			debug* msg;
 			std::filesystem::path path;
@@ -139,24 +145,26 @@ namespace fsystem
 			{
 				B = 8,
 				KB = 8 * 1024,
-				MB = 8 * 1024^2,
-				GB = 8 * 1024^3,
-				TB = 8 * 1024^4
+				MB = 8 * 1024 ^ 2,
+				GB = 8 * 1024 ^ 3,
+				TB = 8 * 1024 ^ 4
 			};
 
 			static double_t formatSizeInBytes(fsystem::global::helpers::formats format, uintmax_t sizeInBytes);
 
 			template<typename T> static std::vector<T> getFolders(std::vector<T> list, debug* msg = new debug())
 			{
-				if (!std::is_same<T, std::string>::value || std::is_same<T, std::filesystem::path>::value) 
-				{ msg->push(debug::error, "fsystem::global::helpers::getFolders -> Check failed.", "Invaild template (std::string || std::filesystem::path)", __FILE__); return list; }
-			
+				if (!std::is_same<T, std::string>::value || std::is_same<T, std::filesystem::path>::value)
+				{
+					msg->push(debug::error, "fsystem::global::helpers::getFolders -> Check failed.", "Invaild template (std::string || std::filesystem::path)", __FILE__); return list;
+				}
+
 				try {
-					std::vector<T> newList; 
+					std::vector<T> newList;
 
 					for (T path : list)
 					{
-						std::filesystem::path pathFixed = path; 
+						std::filesystem::path pathFixed = path;
 						if (std::filesystem::is_directory(pathFixed)) newList.push_back(path);
 					}
 
@@ -172,7 +180,7 @@ namespace fsystem
 				}
 
 				try {
-					std::vector<T> newList; 
+					std::vector<T> newList;
 					for (T path : list)
 					{
 						if (std::filesystem::is_regular_file(path)) newList.push_back(path);
@@ -182,9 +190,56 @@ namespace fsystem
 				}
 				catch (std::exception& ex) { msg->push(debug::error, "fsystem::global::helpers::getFiles -> Failed", ex.what(), __FILE__); return list; }
 			}
-			
+
 		};
-	}; 
+	};
+
+	namespace network
+	{
+
+		class regular
+		{
+		public:
+			regular(debug* msg = new debug());
+
+			void setUrl(std::string url);
+			
+
+		private:
+			debug* msg;
+			std::string url;
+		};
+
+
+	}
+
+	namespace cache
+	{
+		namespace basic
+		{
+			
+			class dir
+			{
+			public: 
+				dir(debug* msg = new debug());
+				bool create(std::string startingPath = "C:/");
+
+			private:
+				debug* msg;
+			};
+
+			class file
+			{
+			public:
+				file(debug* msg = new debug());
+
+			private:
+				debug* msg; 
+			};
+
+		}
+
+	}
 
 };
 

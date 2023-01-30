@@ -132,7 +132,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="debug.cpp" />
+    <ClCompile Include="fsystem-cache-basic-dir.cpp" />
     <ClCompile Include="fsystem.cpp" />
+    <ClCompile Include="smath.cpp" />
     <ClCompile Include="start.cpp" />
     <ClCompile Include="ctime.cpp" />
   </ItemGroup>
@@ -142,6 +144,7 @@
     <ClInclude Include="fsystem.h" />
     <ClInclude Include="globalinclude.h" />
     <ClInclude Include="ctime.h" />
+    <ClInclude Include="smath.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

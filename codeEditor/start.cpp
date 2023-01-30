@@ -1,7 +1,7 @@
 #include "globalinclude.h"
 #include "debug.h"
 #include "fsystem.h"
-
+#include "smath.h"
 
 int main()
 {
@@ -11,18 +11,8 @@ int main()
 	msg->setMessageState(debug::warning, true);
 	msg->setMessageState(debug::message, true);
 
-	fsystem::dir::helpers* dir = new fsystem::dir::helpers(msg);
-	dir->setPath<std::string>("C:/Program Files/");
-
-
-	std::vector<std::string> paths = dir->getAllRecursivePaths();
-
-	for (std::string path : fsystem::global::helpers::getFiles(paths))
-	{
-		std::cout << path << std::endl;
-	}
-
-	std::cout << "Size : " << fsystem::global::helpers::formatSizeInBytes(fsystem::global::helpers::GB, dir->getSize()) << "KB" << std::endl;
+	fsystem::cache::basic::dir* cache = new fsystem::cache::basic::dir(msg);
+	cache->create();
 
 	return 0; 
 }
