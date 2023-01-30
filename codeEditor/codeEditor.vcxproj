@@ -133,6 +133,7 @@
   <ItemGroup>
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="fsystem-cache-basic-dir.cpp" />
+    <ClCompile Include="fsystem-cache-basic-filecpp.cpp" />
     <ClCompile Include="fsystem.cpp" />
     <ClCompile Include="smath.cpp" />
     <ClCompile Include="start.cpp" />

@@ -45,6 +45,8 @@ namespace fsystem
 
 			uintmax_t getSize();
 
+			void remove();
+
 		private:
 
 			std::fstream file;
@@ -129,6 +131,8 @@ namespace fsystem
 
 			bool create();
 				
+			void removeAll();
+
 		private:
 			debug* msg;
 			std::filesystem::path path;
@@ -224,17 +228,28 @@ namespace fsystem
 				dir(debug* msg = new debug());
 				bool create(std::string startingPath = "C:/");
 
+				std::filesystem::path getPath(); 
+				void destory();
+
 			private:
 				debug* msg;
+				std::filesystem::path path; 
 			};
 
 			class file
 			{
 			public:
-				file(debug* msg = new debug());
+				file(fsystem::cache::basic::dir* dir,debug* msg = new debug());
+
+				bool create(); 
+				std::filesystem::path getPath();
+				void destory();
+
 
 			private:
 				debug* msg; 
+				std::filesystem::path dirPath;
+				std::filesystem::path path; 
 			};
 
 		}

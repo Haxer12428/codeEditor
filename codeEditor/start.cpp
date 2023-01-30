@@ -3,6 +3,12 @@
 #include "fsystem.h"
 #include "smath.h"
 
+#ifdef _WIN32
+#define CLEAR "cls"
+#else
+#define CLEAR "clear"
+#endif
+
 int main()
 {
 	
@@ -14,5 +20,10 @@ int main()
 	fsystem::cache::basic::dir* cache = new fsystem::cache::basic::dir(msg);
 	cache->create();
 
+	fsystem::cache::basic::file* cfile = new fsystem::cache::basic::file(cache, msg);
+	cfile->create();
+
+	cfile->destory();
+	cache->destory();
 	return 0; 
 }

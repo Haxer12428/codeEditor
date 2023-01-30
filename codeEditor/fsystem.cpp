@@ -143,3 +143,13 @@ bool fsystem::dir::helpers::create()
 	} return true; 
 }
 
+
+void fsystem::regular::helpers::remove()
+{
+	std::filesystem::remove(this->path);
+}
+
+void fsystem::dir::helpers::removeAll()
+{
+	std::filesystem::remove_all(this->path);
+}

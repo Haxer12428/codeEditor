@@ -51,6 +51,9 @@
     <ClCompile Include="fsystem-cache-basic-dir.cpp">
       <Filter>Pliki źródłowe\essentials\fsystem</Filter>
     </ClCompile>
+    <ClCompile Include="fsystem-cache-basic-filecpp.cpp">
+      <Filter>Pliki źródłowe\essentials\fsystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="globalinclude.h">

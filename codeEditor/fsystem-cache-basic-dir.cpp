@@ -21,6 +21,7 @@ bool fsystem::cache::basic::dir::create(std::string p)
 		
 		if (dir->validate())
 		{
+			this->path = path;
 			dir->destroy();
 			msg->push(debug::message, "fsystem::cache::basic::dir::create -> Successfully created.", path, __FILE__); return true; 
 		}
@@ -30,4 +31,17 @@ bool fsystem::cache::basic::dir::create(std::string p)
 	}
 
 	return false; 
+}
+
+std::filesystem::path fsystem::cache::basic::dir::getPath()
+{
+	return this->path; 
+}
+void fsystem::cache::basic::dir::destory()
+{
+	fsystem::dir::helpers* dir = new fsystem::dir::helpers(this->msg);
+	dir->setPath<std::string>(this->path.string());
+	dir->removeAll();
+	dir->destroy();
+	delete this;
 }
